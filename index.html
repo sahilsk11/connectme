@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Connect</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="CSS/bootstrap.css" rel="stylesheet">
+		<script src="js/XHRequest.js"></script>
+		<script>
+			function getEvents() {
+			XHRequest.createRequest({
+					success: displayEvents, 
+					method: "GET",
+					params: {
+						command: "events"
+					},
+					url: "scripts/connect_database.py"
+				});
+			}
+
+			function displayEvents(xhr, xhrConfig) {
+				var events = JSON.parse(xhr.responseText);
+				console.log(events);
+			}
+		</script>
+
+	</head>
+
+	<body onload="getEvents()">
+		<h1>Connect</h1>
+		<h5>Find students around you</h5>
+
+		<div id="groups">
+
+		</div>
+	</body>
+</html>
