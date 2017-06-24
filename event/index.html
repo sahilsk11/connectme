@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Connect</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script>
+			var code;
+
+			function getCode() {
+				var url = new URL(window.location.href);
+				code = url.searchParams.get("code");
+			}
+
+			function getEvent() {
+				XHRequest.createRequest({
+					success: displayEvent, 
+					method: "GET",
+					params: {
+						command: "single_event",
+						code: code
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+
+			function displayEvent(xhr, xhrConfig) {
+				var events = JSON.parse(xhr.responseText);
+				var name = events["name"];
+				var date = events["group_date"];
+				var host = events["host"];
+				var host_id = events["host_id"];
+				var code = events["uid"];
+				var categories = events["categories"];
+				var description = events["description"];
+				var location = events["location"];
+				var maximum_people = events["maximum_people"];
+				var facebook_link = events["fb_url"];
+			}
+
+			function run() {
+				getCode();
+				getEvent();
+			}
+
+		</script>
+	</head>
+
+	<body onload="run()">
+		<nav class="navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="." class="navbar-brand">
+	    				<p class="title-font">ConnectMe</p>
+	    				<img src="" class="">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="navbar-collapse collapse">
+	    			<ul class="nav navbar-nav theme">
+	    				<li><a href="#">Profile</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
+	</body>
+</html>

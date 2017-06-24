@@ -1,4 +1,4 @@
-#!usr/bin/python
+#!/usr/bin/python
 
 print "Content-type: application/json\n\n"
 
@@ -12,15 +12,14 @@ def init_shelve(f):
         f["groups"] = []
     
 def create_group(f):
-    s = group.Group(None, None, None, None, None, None, None)
+    s = group.Group("Basketball Party", "6/20", ["sports"], "description", "San Jose", "Sahil", 2, "")
     f["groups"].insert(0, s)
 
 user_data = shelve.open("user_information.shelve", writeback=True)
 init_shelve(user_data)
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
-
-command = "events"
+code = form.getfirst("code", "")
 
 if (command == "events"):
     sorted_groups = []
@@ -29,4 +28,13 @@ if (command == "events"):
         sorted_groups.append(group_dict)
     j = json.dumps(sorted_groups)
     print j
+    
+if (command == "single_event"):
+    j = ""
+    for i in range (0, len(user_data["groups"])):
+        if (str(user_data["groups"][i].uid) == code):
+            d = user_data["groups"][i].__dict__
+            j = json.dumps(d)
+    print j
+
 user_data.close()

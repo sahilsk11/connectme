@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Connect</title>
@@ -5,7 +6,11 @@
 		<meta name="author" content="Sahil Kapur">
 
 		<link href="CSS/bootstrap.css" rel="stylesheet">
+		<link href="CSS/organize.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
 		<script src="js/XHRequest.js"></script>
+		<script src="js/jquery-2.2.4.min.js"></script>
+		<script src="js/bootstrap.js"></script>
 		<script>
 			function getEvents() {
 			XHRequest.createRequest({
@@ -20,18 +25,63 @@
 
 			function displayEvents(xhr, xhrConfig) {
 				var events = JSON.parse(xhr.responseText);
-				console.log(events);
+				for (var i = 0; i < events.length; i++) {
+					console.log(events);
+					var name = events[i]["name"];
+					var date = events[i]["group_date"];
+					var host = events[i]["host"];
+					var host_id = events[i]["host_id"];
+					var code = events[i]["uid"];
+					var categories = events[i]["categories"];
+					var description = events[i]["description"];
+					var location = events[i]["location"];
+					var maximum_people = events[i]["maximum_people"];
+					var facebook_link = events[i]["fb_url"];
+
+					var html = "\
+						<div class='event-container center'><a href='event?code="+code+"'>\
+							<h3><a href='event?code="+code+"'>"+name+"</a></h3>\
+							<h5><a href='user?code="+host_id+"'>"+host+"</a></h5>\
+							<h5>"+date+"</h5>\
+							<h5>"+location+"</h5>\
+						</div>"
+					var group_element = document.getElementById("groups").innerHTML;
+					group_element += html;
+					document.getElementById("groups").innerHTML = group_element;
+				}
 			}
 		</script>
 
 	</head>
 
 	<body onload="getEvents()">
-		<h1>Connect</h1>
-		<h5>Find students around you</h5>
+		<nav class="navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="." class="navbar-brand">
+	    				<p class="title-font">ConnectMe</p>
+	    				<img src="" class="">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="navbar-collapse collapse">
+	    			<ul class="nav navbar-nav theme">
+	    				<li><a href="#">Profile</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
 
-		<div id="groups">
+		<h1 class="text-center title-font">ConnectMe</h1>
+		<h5 class="title-font">Find students around you</h5>
 
+		<div id="groups" class="container-fluid">
+			
 		</div>
 	</body>
 </html>
