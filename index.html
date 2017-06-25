@@ -26,11 +26,10 @@
 			function displayEvents(xhr, xhrConfig) {
 				var events = JSON.parse(xhr.responseText);
 				for (var i = 0; i < events.length; i++) {
-					console.log(events);
 					var name = events[i]["name"];
 					var date = events[i]["group_date"];
-					var host = events[i]["host"];
-					var host_id = events[i]["host_id"];
+					var host = events[i]["host"]["name"];
+					var host_id = events[i]["host"]["host_id"];
 					var code = events[i]["uid"];
 					var categories = events[i]["categories"];
 					var description = events[i]["description"];
