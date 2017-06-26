@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Connect</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script>
+			function getFormInfo() {
+				var eventName = document.getElementById("name").value;
+				var eventDate = document.getElementById("event-date").value;
+				var description = document.getElementById("description").value;
+				var location = document.getElementById("location").value;
+				var maximumPeople = document.getElementById("maximum-people").value;
+				var facebookUrl = document.getElementById("fb-url").value;
+				var hostFirstName = document.getElementById("first-name").value;
+				var hostLastName = document.getElementById("last-name").value;
+				var username = document.getElementById("username").value;
+				var email = document.getElementById("email").value;
+				var phone = document.getElementById("phone").value;
+
+				var host = {"user_name":username, "first_name":hostFirstName, "last_name":hostLastName, "email_address":email, "phone":phone}
+				var eventJSON = {"event_name":eventName, "date":eventDate, "description":description, "location":location, "host":host, "maximum_people":maximumPeople, "fb_url":facebookUrl}
+				createEvent(eventJSON);
+			}
+
+			function goToEvent() {
+				
+			}
+
+			function createEvent(eventJSON) {
+			XHRequest.createRequest({
+					success: goToEvent, 
+					method: "GET",
+					params: {
+						command: "create",
+						data: eventJSON,
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+		</script>
+	</head>
+
+	<body>
+		<nav class="navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="." class="navbar-brand">
+	    				<p class="title-font">ConnectMe</p>
+	    				<img src="" class="">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="navbar-collapse collapse">
+	    			<ul class="nav navbar-nav theme">
+	    				<li><a href="#">Profile</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
+
+		<form>
+			<div class="form-group create-event center">
+				<label>Event Name</label>
+				<input class="form-control" id="name" placeholder="Name">
+			</div>
+			<div class="form-group create-event center">
+				<label>Event Date</label>
+				<input class="form-control" id="event-date" placeholder="Date">
+			</div>
+			<div class="form-group create-event center">
+				<label>Event Description</label>
+				<textarea class="form-control" rows="3" id="description" placeholder="Description"></textarea>
+			</div>
+			<div class="form-group create-event center">
+				<label>Event Location</label>
+				<input class="form-control" id="location" placeholder="Location">
+			</div>
+			<div class="form-group create-event center">
+				<label>Maximum People (optional)</label>
+				<input class="form-control" id="maximum-people" placeholder="Number of people">
+			</div>
+			<div class="form-group create-event center">
+				<label>Facebook Event link (optional)</label>
+				<input class="form-control" id="fb-url" placeholder="Number of people">
+			</div>
+
+			<h1 class="text-center">Host Information</h1>
+
+			<div class="form-group create-event center">
+				<label>Host Name (first)</label>
+				<input class="form-control" id="first-name" placeholder="First">
+			</div>
+			<div class="form-group create-event center">
+				<label>Host Name (last)</label>
+				<input class="form-control" id="last-name" placeholder="Last">
+			</div>
+			<div class="form-group create-event center">
+				<label>Username</label>
+				<input class="form-control" id="username" placeholder="Username">
+			</div>
+			<div class="form-group create-event center">
+				<label>Email Address</label>
+				<input class="form-control" id="email" placeholder="Email">
+			</div>
+			<div class="form-group create-event center">
+				<label>Phone Number (optional)</label>
+				<input class="form-control" id="phone" placeholder="Phone Number">
+			</div>
+			
+		</form>
+		<button class="btn btn-primary submit-button" onclick="getFormInfo()">Submit</button>
+
+	</body>
+</html>

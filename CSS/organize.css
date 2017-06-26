@@ -39,3 +39,19 @@ body {
 	width: 90%;
 	max-width: 810px;
 }
+
+.banner {
+	background-color: #CECECE;
+	height: 100vw;
+}
+
+/*create*/
+
+.create-event {
+	width: 90%;
+}
+
+.submit-button {
+	margin-left: 50px;
+	margin-bottom: 100px;
+}

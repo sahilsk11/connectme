@@ -14,13 +14,13 @@ def init_shelve(f):
     if (not "users" in f):
         f["users"] = {}
     
-def create_group(f, host):
-    s = group.Group("Basketball Party", "6/20", ["sports"], "description", "San Jose", host, 2, "")
+def create_group(event_name, date, categories, description, location, maximum_people, host, f):
+    s = group.Group(event_name, date, categories, description, location, host, 2, "")
     f["groups"].insert(0, s)
     
-def add_user(user_name, first_name, last_name, email_address, f):
+def add_user(user_name, first_name, last_name, email_address, phone, f):
     if (not user_name in f["users"]):
-        new_user = user.User(user_name, first_name, last_name, email_address)
+        new_user = user.User(user_name, first_name, last_name, email_address, phone)
         f["users"][user_name] = new_user
         return new_user
     else:
@@ -46,11 +46,12 @@ def create_dict_from_group(group):
 user_data = shelve.open("user_information.shelve", writeback=True)
 #user_data.clear()
 init_shelve(user_data)
-#host = add_user("sahil", "Sahil", "Kapur", "", user_data)
-#create_group(user_data, host)
+#host = add_user("jane", "Jane", "Zhang", "", "", user_data)
+#create_group("Movie Night", "7/25/17", [], "Everyone can join! Our plan is to watch the movie Bee Movie at the Stevens building to raise money for charity. We need volunteers to set up. Come out and help!", "San Jose", 10, host, user_data)
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
 code = form.getfirst("code", "")
+command = "events"
 
 if (command == "events"):
     sorted_groups = []
