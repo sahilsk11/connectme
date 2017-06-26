@@ -14,8 +14,20 @@ body {
 	font-family: 'Raleway', sans-serif;
 }
 
+.user {
+	position: absolute;
+	right: 5px;
+	top: 10px;
+	font-size: 17px;
+}
+
+.description {
+	margin-top: 20px;
+}
+
 .event-container {
 	border-style: solid;
+	position: relative;
 	font-family: 'Questrial', sans-serif;
 	padding: 5px;
 	background-image: url("");

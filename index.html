@@ -38,11 +38,12 @@
 					var facebook_link = events[i]["fb_url"];
 
 					var html = "\
-						<div class='event-container center'><a href='event?code="+code+"'>\
+						<div class='event-container col-md-offset-3'><a href='event?code="+code+"'>\
 							<h3><a href='event?code="+code+"'>"+name+"</a></h3>\
-							<h5><a href='user?code="+host_id+"'>"+host+"</a></h5>\
-							<h5>"+date+"</h5>\
-							<h5>"+location+"</h5>\
+							<h5 class='user'><a href='user?code="+host_id+"'>"+host+"</a></h5>\
+							<p class='description lead'>"+description+"</p>\
+							<h5>Date: "+date+"</h5>\
+							<h5>Where: "+location+"</h5>\
 						</div>"
 					var group_element = document.getElementById("groups").innerHTML;
 					group_element += html;
