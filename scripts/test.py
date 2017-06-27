@@ -1,7 +1,7 @@
 import shelve
-import group
+import connect_database
 
 user_info = shelve.open("user_information.shelve", writeback=True)
-print(user_info["groups"][0])
+#connect_database.delete_group(0, user_info)
 
 user_info.close()

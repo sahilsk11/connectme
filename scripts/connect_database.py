@@ -18,6 +18,10 @@ def create_group(event_name, date, categories, description, location, host, maxi
     s = group.Group(event_name, date, categories, description, location, host, 2, fb_url)
     f["groups"].insert(0, s)
     
+def delete_group(index, f):
+    print(len(f["groups"]))
+    f["groups"].remove(1)
+    
 def add_user(user_name, first_name, last_name, email_address, phone, f):
     if (not user_name in f["users"]):
         new_user = user.User(user_name, first_name, last_name, email_address, phone)
