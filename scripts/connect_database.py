@@ -51,7 +51,6 @@ init_shelve(user_data)
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
 code = form.getfirst("code", "")
-command = "events"
 
 if (command == "events"):
     sorted_groups = []
