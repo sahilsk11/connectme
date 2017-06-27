@@ -44,7 +44,6 @@ def create_dict_from_group(group):
     return d
         
 user_data = shelve.open("user_information.shelve", writeback=True)
-user_data.clear()
 init_shelve(user_data)
 #host = add_user("sahil", "Sahil", "Kapur", "", "", user_data)
 #create_group("Beach Pickup", "6/28/17", [], "Come to the beach to help keep our environment safe! We don't need experience, we just need volunteers.", "Zuma Beach", 10, host, user_data)
@@ -63,8 +62,6 @@ if (command == "events"):
     
 if (command == "create"):
     d = eval(data)
-    print("run")
-    print(d)
     host = user.User(d["host"]["username"], d["host"]["first"], d["host"]["last"], d["host"]["email"], d["host"]["phone"])
     create_group(d["event_name"], d["event_date"], "", d["description"], d["location"], host, d["maximum_people"], d["fb_url"], user_data)
     d = {"success":"true"}
