@@ -58,14 +58,18 @@
 			      		<span class="icon-bar"></span>
 			      		<span class="icon-bar"></span>
 		        	</button>
-	    			<a href="." class="navbar-brand">
+	    			<a href="../" class="navbar-brand">
 	    				<p class="title-font">ConnectMe</p>
 	    				<img src="" class="">
 	    			</a>
 				</div>
 	    		<div id="navbar" class="navbar-collapse collapse">
 	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="#">Profile</a></li>
+	    				<li><a href="../profile">Profile</a></li>
+	    				<li><a href="../create">Create Event</a></li>
+	    				<li><a href="../newaccount">Create Account</a></li>
+	    				<li class="active"><a href="../verify">Verify Club</a></li>
+	    				<li><a href="../logout">Logout</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -77,7 +81,7 @@
 				<input class="form-control" id="name" placeholder="Name">
 			</div>
 			<div class="form-group create-event center">
-				<label>Date</label>
+				<label>Date (mm/dd/yyyy)</label>
 				<input class="form-control" id="event-date" placeholder="Date">
 			</div>
 			<div class="form-group create-event center">
@@ -85,43 +89,43 @@
 				<textarea class="form-control" rows="3" id="description" placeholder="Description"></textarea>
 			</div>
 			<div class="form-group create-event center">
-				<label>Event Location</label>
+				<label>Event Location (include city, state, and ZIP)</label>
 				<input class="form-control" id="location" placeholder="Location">
 			</div>
 			<div class="form-group create-event center">
-				<label>Number of Volunteers Present</label>
+				<label>Number of Volunteers Present (estimate)</label>
 				<input class="form-control" id="maximum-people" placeholder="Number of people">
 			</div>
 			<div class="form-group create-event center">
-				<label>Link (optional)</label>
-				<input class="form-control" id="fb-url" placeholder="Number of people">
+				<label>Facebook link (optional)</label>
+				<input class="form-control" id="fb-url" placeholder="URL">
 			</div>
 
 			<h1 class="text-center">Supervisor Information</h1>
 
 			<div class="form-group create-event center">
 				<label>Supervisor Name (first)</label>
-				<input class="form-control" id="first-name" placeholder="First">
+				<input class="form-control" id="supervisor-first-name" placeholder="First">
 			</div>
 			<div class="form-group create-event center">
 				<label>Supervisor Name (last)</label>
-				<input class="form-control" id="last-name" placeholder="Last">
+				<input class="form-control" id="supervisor-last-name" placeholder="Last">
 			</div>
 			<div class="form-group create-event center">
 				<label>Phone Number</label>
-				<input class="form-control" id="username" placeholder="Username">
+				<input class="form-control" id="supervisor-phone" placeholder="Supervisor Phone">
 			</div>
 			<div class="form-group create-event center">
 				<label>Email Address</label>
-				<input class="form-control" id="email" placeholder="Email">
+				<input class="form-control" id="supervisor-email" placeholder="Email">
 			</div>
 			<div class="form-group create-event center">
 				<label>Other Contact Information</label>
-				<input class="form-control" id="phone" placeholder="Phone Number">
+				<input class="form-control" id="other">
 			</div>
 			
 		</form>
-		<button class="btn btn-primary submit-button" onclick="getFormInfo()">Submit</button>
+		<button class="btn btn-primary" onclick="getFormInfo()">Submit</button>
 
 	</body>
 </html>

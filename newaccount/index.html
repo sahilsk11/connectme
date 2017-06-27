@@ -13,21 +13,14 @@
 		<script src="../js/bootstrap.js"></script>
 		<script>
 			function getFormInfo() {
-				var eventName = document.getElementById("name").value;
-				var eventDate = document.getElementById("event-date").value;
-				var description = document.getElementById("description").value;
-				var location = document.getElementById("location").value;
-				var maximumPeople = document.getElementById("maximum-people").value;
-				var facebookUrl = document.getElementById("fb-url").value;
-				var hostFirstName = document.getElementById("first-name").value;
-				var hostLastName = document.getElementById("last-name").value;
-				var username = document.getElementById("username").value;
-				var email = document.getElementById("email").value;
-				var phone = document.getElementById("phone").value;
-
-				var host = {"user_name":username, "first_name":hostFirstName, "last_name":hostLastName, "email_address":email, "phone":phone}
-				var eventJSON = {"event_name":eventName, "date":eventDate, "description":description, "location":location, "host":host, "maximum_people":maximumPeople, "fb_url":facebookUrl}
-				createEvent(eventJSON);
+				var firstName = document.getElementById("first-name");
+				var lastName = document.getElementById("last-name");
+				var birthdate = document.getElementById("birth-date");
+				var organizations = document.getElementById("organizations");
+				var linkedin = document.getElementById("linkedin");
+				var fb = document.getElementById("fb");
+				var github = document.getElementById("github");
+				alert("button clicked");
 			}
 
 			function goToEvent() {
@@ -39,7 +32,7 @@
 					success: goToEvent, 
 					method: "GET",
 					params: {
-						command: "create",
+						command: "create-user",
 						data: eventJSON,
 					},
 					url: "../scripts/connect_database.py"
@@ -58,7 +51,7 @@
 			      		<span class="icon-bar"></span>
 			      		<span class="icon-bar"></span>
 		        	</button>
-	    			<a href="." class="navbar-brand">
+	    			<a href="../" class="navbar-brand">
 	    				<p class="title-font">ConnectMe</p>
 	    				<img src="" class="">
 	    			</a>
@@ -66,6 +59,9 @@
 	    		<div id="navbar" class="navbar-collapse collapse">
 	    			<ul class="nav navbar-nav theme">
 	    				<li><a href="#">Profile</a></li>
+	    				<li><a href="../create">Create Event</a></li>
+	    				<li class="active"><a href="../newaccount">Create Account</a></li>
+	    				<li><a href="../verify">Verify Club</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -74,54 +70,38 @@
 		<form>
 			<div class="form-group create-event center">
 				<label>First Name</label>
-				<input class="form-control" id="name" placeholder="Name">
+				<input class="form-control" id="first-name" placeholder="John">
 			</div>
 			<div class="form-group create-event center">
 				<label>Last Name</label>
-				<input class="form-control" id="event-date" placeholder="Date">
+				<input class="form-control" id="last-name" placeholder="Smith">
 			</div>
 			<div class="form-group create-event center">
-				<label>Date of Birth</label>
-				<textarea class="form-control" rows="3" id="description" placeholder="Description"></textarea>
+				<label>Date of Birth (mm/dd/yyyy)</label>
+				<input id="birth-date" class="form-control" placeholder="01/01/1999"></input>
+			</div>
+			<div class="form-group create-event center">
+				<label>Password (use a password you do not use for anything else)</label>
+				<input id="password" class="form-control" type="password" placeholder="Password"></input>
 			</div>
 			<div class="form-group create-event center">
 				<label>Organizations that you are a part of (Seperated by commas)</label>
-				<input class="form-control" id="location" placeholder="Location">
+				<input id="organizations" class="form-control" id="location" placeholder="Organizations">
 			</div>
 			<div class="form-group create-event center">
-				<label>Maximum People (optional)</label>
-				<input class="form-control" id="maximum-people" placeholder="Number of people">
+				<label>LinkedIn URL (optional)</label>
+				<input class="form-control" id="linkedin" placeholder="LinkedIn">
 			</div>
 			<div class="form-group create-event center">
-				<label>Facebook Event link (optional)</label>
-				<input class="form-control" id="fb-url" placeholder="Number of people">
+				<label>Facebook URL (optional)</label>
+				<input class="form-control" id="fb" placeholder="Facebook">
+			</div>
+			<div class="form-group create-event center">
+				<label>GitHub URL (optional)</label>
+				<input class="form-control" id="github" placeholder="GitHub">
 			</div>
 
-			<h1 class="text-center">Host Information</h1>
-
-			<div class="form-group create-event center">
-				<label>Host Name (first)</label>
-				<input class="form-control" id="first-name" placeholder="First">
-			</div>
-			<div class="form-group create-event center">
-				<label>Host Name (last)</label>
-				<input class="form-control" id="last-name" placeholder="Last">
-			</div>
-			<div class="form-group create-event center">
-				<label>Username</label>
-				<input class="form-control" id="username" placeholder="Username">
-			</div>
-			<div class="form-group create-event center">
-				<label>Email Address</label>
-				<input class="form-control" id="email" placeholder="Email">
-			</div>
-			<div class="form-group create-event center">
-				<label>Phone Number (optional)</label>
-				<input class="form-control" id="phone" placeholder="Phone Number">
-			</div>
-			
-		</form>
-		<button class="btn btn-primary submit-button" onclick="getFormInfo()">Submit</button>
+		<button class="btn btn-primary" onclick="getFormInfo()">Submit</button>
 
 	</body>
 </html>
