@@ -14,8 +14,8 @@ def init_shelve(f):
     if (not "users" in f):
         f["users"] = {}
     
-def create_group(event_name, date, categories, description, location, maximum_people, host, f):
-    s = group.Group(event_name, date, categories, description, location, host, 2, "")
+def create_group(event_name, date, categories, description, location, host, maximum_people, fb_url,  f):
+    s = group.Group(event_name, date, categories, description, location, host, 2, fb_url)
     f["groups"].insert(0, s)
     
 def add_user(user_name, first_name, last_name, email_address, phone, f):
@@ -44,13 +44,14 @@ def create_dict_from_group(group):
     return d
         
 user_data = shelve.open("user_information.shelve", writeback=True)
-#user_data.clear()
+user_data.clear()
 init_shelve(user_data)
 #host = add_user("sahil", "Sahil", "Kapur", "", "", user_data)
 #create_group("Beach Pickup", "6/28/17", [], "Come to the beach to help keep our environment safe! We don't need experience, we just need volunteers.", "Zuma Beach", 10, host, user_data)
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
 code = form.getfirst("code", "")
+data = form.getfirst("data", "")
 
 if (command == "events"):
     sorted_groups = []
@@ -58,6 +59,16 @@ if (command == "events"):
         group_dict = create_dict_from_group(user_data["groups"][i])
         sorted_groups.append(group_dict)
     j = json.dumps(sorted_groups)
+    print j
+    
+if (command == "create"):
+    d = eval(data)
+    print("run")
+    print(d)
+    host = user.User(d["host"]["username"], d["host"]["first"], d["host"]["last"], d["host"]["email"], d["host"]["phone"])
+    create_group(d["event_name"], d["event_date"], "", d["description"], d["location"], host, d["maximum_people"], d["fb_url"], user_data)
+    d = {"success":"true"}
+    j = json.dumps(d)
     print j
     
 if (command == "single_event"):

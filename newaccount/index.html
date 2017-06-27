@@ -13,6 +13,7 @@
 		<script src="../js/bootstrap.js"></script>
 		<script>
 			function getFormInfo() {
+				console.log("button clicked");
 				var firstName = document.getElementById("first-name");
 				var lastName = document.getElementById("last-name");
 				var birthdate = document.getElementById("birth-date");
@@ -20,7 +21,6 @@
 				var linkedin = document.getElementById("linkedin");
 				var fb = document.getElementById("fb");
 				var github = document.getElementById("github");
-				alert("button clicked");
 			}
 
 			function goToEvent() {
@@ -58,7 +58,7 @@
 				</div>
 	    		<div id="navbar" class="navbar-collapse collapse">
 	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="#">Profile</a></li>
+	    				<li><a href="../user">Profile</a></li>
 	    				<li><a href="../create">Create Event</a></li>
 	    				<li class="active"><a href="../newaccount">Create Account</a></li>
 	    				<li><a href="../verify">Verify Club</a></li>
@@ -100,6 +100,7 @@
 				<label>GitHub URL (optional)</label>
 				<input class="form-control" id="github" placeholder="GitHub">
 			</div>
+		</form>
 
 		<button class="btn btn-primary" onclick="getFormInfo()">Submit</button>
 

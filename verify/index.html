@@ -13,21 +13,18 @@
 		<script src="../js/bootstrap.js"></script>
 		<script>
 			function getFormInfo() {
-				var eventName = document.getElementById("name").value;
+				console.log("button has been clicked")
+				var organization = document.getElementById("name").value;
 				var eventDate = document.getElementById("event-date").value;
 				var description = document.getElementById("description").value;
 				var location = document.getElementById("location").value;
-				var maximumPeople = document.getElementById("maximum-people").value;
+				var volunteers = document.getElementById("people").value;
 				var facebookUrl = document.getElementById("fb-url").value;
-				var hostFirstName = document.getElementById("first-name").value;
-				var hostLastName = document.getElementById("last-name").value;
-				var username = document.getElementById("username").value;
-				var email = document.getElementById("email").value;
-				var phone = document.getElementById("phone").value;
-
-				var host = {"user_name":username, "first_name":hostFirstName, "last_name":hostLastName, "email_address":email, "phone":phone}
-				var eventJSON = {"event_name":eventName, "date":eventDate, "description":description, "location":location, "host":host, "maximum_people":maximumPeople, "fb_url":facebookUrl}
-				createEvent(eventJSON);
+				var supervisorFirstName = document.getElementById("supervisor-first-name").value;
+				var supervisorLastName = document.getElementById("supervisor-last-name").value;
+				var supervisorPhone = document.getElementById("supervisor-phone").value;
+				var supervisorEmail = document.getElementById("supervisor-email");
+				var supervisorOther = document.getElementById("other");
 			}
 
 			function goToEvent() {
@@ -65,7 +62,7 @@
 				</div>
 	    		<div id="navbar" class="navbar-collapse collapse">
 	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="../profile">Profile</a></li>
+	    				<li><a href="../user">Profile</a></li>
 	    				<li><a href="../create">Create Event</a></li>
 	    				<li><a href="../newaccount">Create Account</a></li>
 	    				<li class="active"><a href="../verify">Verify Club</a></li>
@@ -94,7 +91,7 @@
 			</div>
 			<div class="form-group create-event center">
 				<label>Number of Volunteers Present (estimate)</label>
-				<input class="form-control" id="maximum-people" placeholder="Number of people">
+				<input class="form-control" id="people" placeholder="Number of people">
 			</div>
 			<div class="form-group create-event center">
 				<label>Facebook link (optional)</label>
