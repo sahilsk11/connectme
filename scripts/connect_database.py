@@ -49,8 +49,6 @@ def create_dict_from_group(group):
         
 user_data = shelve.open("user_information.shelve", writeback=True)
 init_shelve(user_data)
-#host = add_user("sahil", "Sahil", "Kapur", "", "", user_data)
-#create_group("Beach Pickup", "6/28/17", [], "Come to the beach to help keep our environment safe! We don't need experience, we just need volunteers.", "Zuma Beach", 10, host, user_data)
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
 code = form.getfirst("code", "")

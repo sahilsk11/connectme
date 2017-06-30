@@ -54,6 +54,10 @@
 				document.getElementById("host-phone").innerHTML = host["phone"];
 			}
 
+			function apply() {
+				document.getElementById("form").hidden = false;
+
+			}
 
 			function run() {
 				getCode();
@@ -73,14 +77,17 @@
 			      		<span class="icon-bar"></span>
 			      		<span class="icon-bar"></span>
 		        	</button>
-	    			<a href="." class="navbar-brand">
+	    			<a href="../" class="navbar-brand">
 	    				<p class="title-font">ConnectMe</p>
 	    				<img src="" class="">
 	    			</a>
 				</div>
 	    		<div id="navbar" class="navbar-collapse collapse">
 	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="#">Profile</a></li>
+	    				<li><a href="../user">Profile</a></li>
+	    				<li><a href="../create">Create Event</a></li>
+	    				<li><a href="../newaccount">Create Account</a></li>
+	    				<li><a href="../verify">Verify Club</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -95,9 +102,15 @@
 
 		<h1 class="title-font text-center">Host Information</h1>
 		<div class="title-font container-fluid">
-			<h3><a id="host-name"></a></h3>
+			<h3 id="host-name"></h3>
 			<h3 id="host-email"></h3>
 			<h3 id="host-phone"></h3>
+		</div>
+
+		<button class="btn btn-primary" onclick="apply()">Apply for Event</button>
+
+		<div id="form" hidden="true">
+			
 		</div>
 
 	</body>
