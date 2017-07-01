@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Connect</title>
+		<title>ConnectMe</title>
 		<meta name = "viewport" content="initial-scale=1.0">
 		<meta name="author" content="Sahil Kapur">
 
 		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="../CSS/bootstrap.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<link href="../Images/icon.png" rel="icon">
 		<script src="../js/XHRequest.js"></script>
 		<script src="../js/jquery-2.2.4.min.js"></script>
 		<script src="../js/bootstrap.js"></script>
@@ -49,10 +50,14 @@
 				document.getElementById("description").innerHTML = description;
 
 				document.getElementById("map").src = "//www.google.com/maps/embed/v1/place?q="+location+"&zoom=17&key=AIzaSyBeEZCy4cxgcCAh17K7RswTSI6wEjaMweE";
-				document.getElementById("host-name").innerHTML = host["name"];
+				document.getElementById("host-name").innerHTML = "Host: " + host["name"];
 				document.getElementById("host-name").href = "../newaccount?code="+host_id;
-				document.getElementById("host-email").innerHTML = host["email"];
-				document.getElementById("host-phone").innerHTML = host["phone"];
+				if (host["email"] != undefined) {
+					document.getElementById("host-email").innerHTML = host["email"];
+				}
+				if (host["email"] != undefined) {
+					document.getElementById("host-phone").innerHTML = host["phone"];
+				}
 				document.getElementById("apply-button").href= facebook_link;
 			}
 

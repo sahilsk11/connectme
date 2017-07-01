@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Connect</title>
+		<title>ConnectMe</title>
 		<meta name = "viewport" content="initial-scale=1.0">
 		<meta name="author" content="Sahil Kapur">
 
 		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="../CSS/bootstrap.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<link href="../Images/icon.png" rel="icon">
 		<script src="../js/XHRequest.js"></script>
 		<script src="../js/jquery-2.2.4.min.js"></script>
 		<script src="../js/bootstrap.js"></script>
@@ -26,8 +27,18 @@
 				var email = document.getElementById("email").value;
 				var phone = document.getElementById("phone").value;
 				var params = {"event_name":eventName, "event_date":eventDate, "description":description, "location":location, "maximum_people":maximumPeople, "fb_url":facebookUrl, "host":{"username":username, "first":hostFirstName, "last":hostLastName, "email":email, "phone":phone}};
-				var string_params = JSON.stringify(params);
-				createEvent(string_params);
+
+				if (verifyParams(params) == true) {
+					var string_params = JSON.stringify(params);
+					createEvent(string_params);
+				}
+				else {
+					alert("Some fields are missing information. Please try again");
+				}
+			}
+
+			function verifyParams(params) {
+				return  !(params["event_name"] == "" || params["event_date"] == "" || params["description"] == "" || params["location"] == "" || params["fb_url"] == "" || params["host"]["username"] == "" || params["host"]["first"] == "" || params["host"]["last"] == "")
 			}
 
 			function goToEvent(xhr, xhrConfig) {
@@ -76,19 +87,19 @@
 
 		<form>
 			<div class="form-group create-event center">
-				<label>Event Name</label>
+				<label>Event Name *</label>
 				<input class="form-control" id="name" placeholder="Name">
 			</div>
 			<div class="form-group create-event center">
-				<label>Event Date</label>
+				<label>Event Date (mm/dd/yyyy) *</label>
 				<input class="form-control" id="event-date" placeholder="Date">
 			</div>
 			<div class="form-group create-event center">
-				<label>Event Description</label>
+				<label>Event Description *</label>
 				<textarea class="form-control" rows="3" id="description" placeholder="Description"></textarea>
 			</div>
 			<div class="form-group create-event center">
-				<label>Event Location</label>
+				<label>Event Location *</label>
 				<input class="form-control" id="location" placeholder="Location">
 			</div>
 			<div class="form-group create-event center">
@@ -96,26 +107,27 @@
 				<input class="form-control" id="maximum-people" placeholder="Number of people">
 			</div>
 			<div class="form-group create-event center">
-				<label>Facebook Event link (optional)</label>
+				<label>Facebook Event link</label>
+				<p>Note: this is required for people to join your event. Please make sure the URL starts with "http://www"</p>
 				<input class="form-control" id="fb-url" placeholder="Number of people">
 			</div>
 
 			<h1 class="text-center">Host Information</h1>
 
 			<div class="form-group create-event center">
-				<label>Host Name (first)</label>
+				<label>Host Name (first) *</label>
 				<input class="form-control" id="first-name" placeholder="First">
 			</div>
 			<div class="form-group create-event center">
-				<label>Host Name (last)</label>
+				<label>Host Name (last) *</label>
 				<input class="form-control" id="last-name" placeholder="Last">
 			</div>
 			<div class="form-group create-event center">
-				<label>Username</label>
+				<label>Username *</label>
 				<input class="form-control" id="username" placeholder="Username">
 			</div>
 			<div class="form-group create-event center">
-				<label>Email Address</label>
+				<label>Email Address (optional)</label>
 				<input class="form-control" id="email" placeholder="Email">
 			</div>
 			<div class="form-group create-event center">
