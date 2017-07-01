@@ -22,13 +22,16 @@ def delete_group(index, f):
     print(len(f["groups"]))
     f["groups"].remove(1)
     
-def add_user(user_name, first_name, last_name, email_address, phone, f):
-    if (not user_name in f["users"]):
-        new_user = user.User(user_name, first_name, last_name, email_address, phone)
-        f["users"][user_name] = new_user
-        return new_user
-    else:
-        return None
+def add_user(user_name, first_name, last_name, password, email_address, phone, linkedin, facebook, github, f):
+    #if (not user_name in f["users"]):
+    #    new_user = user.User(user_name, first_name, last_name, email_address, phone)
+    #    f["users"][user_name] = new_user
+    #    return new_user
+    #else:
+    #    return None
+    new_user = user.User(user_name, first_name, last_name, password, email_address, phone, linkedin, facebook, github)
+    f["users"][user_name] = new_user
+    return new_user
     
 def create_dict_from_group(group):
     d = {}
@@ -64,7 +67,7 @@ if (command == "events"):
     
 if (command == "create"):
     d = eval(data)
-    host = user.User(d["host"]["username"], d["host"]["first"], d["host"]["last"], d["host"]["email"], d["host"]["phone"])
+    host = user.User(d["host"]["username"], d["host"]["first"], d["host"]["last"], "", d["host"]["email"], d["host"]["phone"], "", "", "")
     create_group(d["event_name"], d["event_date"], "", d["description"], d["location"], host, d["maximum_people"], d["fb_url"], user_data)
     d = {"success":"true"}
     j = json.dumps(d)
@@ -86,5 +89,12 @@ if (command == "user_information"):
         print j
     else:
         print {"error":"not_found"}
+        
+if (command == "create-user"):
+    d = eval(data)
+    add_user(d["username"], d["first_name"], d["last_name"], d["password"], d["email"], d["phone_number"], d["linkedin"], d["facebook"], d["github"], user_data)
+    d = {"success":"true"}
+    j = json.dumps(d)
+    print j
 
 user_data.close()

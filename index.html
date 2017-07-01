@@ -41,10 +41,10 @@
 					var html = "\
 						<div class='event-container'><a href='event?code="+code+"'>\
 							<h3><a href='event?code="+code+"'>"+name+"</a></h3>\
-							<h5 class='user'><a href='user?code="+host_id+"'>"+host+"</a></h5>\
-							<p class='description lead'>"+description+"</p>\
+							<h5><a href='user?code="+host_id+"'>Host: "+host+"</a></h5>\
 							<h5>Date: "+date+"</h5>\
 							<h5>Where: "+location+"</h5>\
+							<p class='description lead'>"+description+"</p>\
 						</div>"
 					var group_element = document.getElementById("groups").innerHTML;
 					group_element += html;

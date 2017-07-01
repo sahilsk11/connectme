@@ -15,22 +15,38 @@
 		<script>
 			function getFormInfo() {
 				console.log("button clicked");
-				var firstName = document.getElementById("first-name");
-				var lastName = document.getElementById("last-name");
-				var birthdate = document.getElementById("birth-date");
-				var organizations = document.getElementById("organizations");
-				var linkedin = document.getElementById("linkedin");
-				var fb = document.getElementById("fb");
-				var github = document.getElementById("github");
+				var firstName = document.getElementById("first-name").value;
+				var lastName = document.getElementById("last-name").value;
+				var username = document.getElementById("username").value;
+				var email = document.getElementById("email").value;
+				var password = document.getElementById("password").value;
+				var birthdate = document.getElementById("birth-date").value;
+				var phone = document.getElementById("phone").value;
+				var linkedin = document.getElementById("linkedin").value;
+				var fb = document.getElementById("fb").value;
+				var github = document.getElementById("github").value;
+				var params = {"first_name":firstName, "last_name":lastName, "username":username, "email":email, "password":password, "phone_number":phone, "linkedin":linkedin, "facebook":fb, "github":github}
+
+				if (verifyParams(params) == true) {
+					var string_params = JSON.stringify(params);
+					createUser(string_params);
+				}
+				else {
+					alert("Some fields are missing information. Please try again.")
+				}
 			}
 
-			function goToEvent() {
-				
+			function verifyParams(params) {
+				return !(params["first_name"] == "" || params["last_name"] == "" || params["username"] == "");
 			}
 
-			function createEvent(eventJSON) {
+			function confirmUser(xhr, xhrConfig) {
+
+			}
+
+			function createUser(eventJSON) {
 			XHRequest.createRequest({
-					success: goToEvent, 
+					success: confirmUser, 
 					method: "GET",
 					params: {
 						command: "create-user",
@@ -70,35 +86,45 @@
 
 		<form>
 			<div class="form-group create-event center">
-				<label>First Name</label>
+				<label>First Name *</label>
 				<input class="form-control" id="first-name" placeholder="John">
 			</div>
 			<div class="form-group create-event center">
-				<label>Last Name</label>
+				<label>Last Name *</label>
 				<input class="form-control" id="last-name" placeholder="Smith">
 			</div>
 			<div class="form-group create-event center">
-				<label>Date of Birth (mm/dd/yyyy)</label>
+				<label>Username *</label>
+				<input id="username" class="form-control" placeholder="Username"></input>
+			</div>
+			<div class="form-group create-event center">
+				<label>Email *</label>
+				<input class="form-control" id="email" placeholder="Email">
+			</div>
+			<div class="form-group create-event center">
+				<label>Date of Birth (mm/dd/yyyy) *</label>
 				<input id="birth-date" class="form-control" placeholder="01/01/1999"></input>
 			</div>
 			<div class="form-group create-event center">
-				<label>Password (use a password you do not use for anything else)</label>
+				<label>Password (use a password you do not use for anything else) *</label>
+				<p>While our company is in the development stage, this will be stored in plaintext and accessable by the team, so please use a unique password</p>
 				<input id="password" class="form-control" type="password" placeholder="Password"></input>
 			</div>
+			
 			<div class="form-group create-event center">
-				<label>Organizations that you are a part of (Seperated by commas)</label>
-				<input id="organizations" class="form-control" id="location" placeholder="Organizations">
+				<label>Phone Number (recommended)</label>
+				<input id="phone" class="form-control" placeholder="Phone"></input>
 			</div>
 			<div class="form-group create-event center">
-				<label>LinkedIn URL (optional)</label>
+				<label>LinkedIn URL (recommended)</label>
 				<input class="form-control" id="linkedin" placeholder="LinkedIn">
 			</div>
 			<div class="form-group create-event center">
-				<label>Facebook URL (optional)</label>
+				<label>Facebook URL (recommended)</label>
 				<input class="form-control" id="fb" placeholder="Facebook">
 			</div>
 			<div class="form-group create-event center">
-				<label>GitHub URL (optional)</label>
+				<label>GitHub URL (recommended)</label>
 				<input class="form-control" id="github" placeholder="GitHub">
 			</div>
 		</form>
