@@ -43,6 +43,7 @@
 				var location = events["location"];
 				var maximum_people = events["maximum_people"];
 				var facebook_link = events["fb_url"];
+				console.log(facebook_link);
 				document.getElementById("name").innerHTML = name;
 				document.getElementById("date").innerHTML = date;
 				document.getElementById("description").innerHTML = description;
@@ -52,10 +53,10 @@
 				document.getElementById("host-name").href = "../newaccount?code="+host_id;
 				document.getElementById("host-email").innerHTML = host["email"];
 				document.getElementById("host-phone").innerHTML = host["phone"];
+				document.getElementById("apply-button").href= facebook_link;
 			}
 
 			function apply() {
-				document.getElementById("form").hidden = false;
 
 			}
 
@@ -107,7 +108,7 @@
 			<h3 id="host-phone"></h3>
 		</div>
 
-		<button class="btn btn-primary" onclick="apply()">Apply for Event</button>
+		<a target="_blank" id="apply-button"><button class="btn btn-primary" onclick="apply()">Apply for Event</button></a>
 
 		<div id="form" hidden="true">
 			
