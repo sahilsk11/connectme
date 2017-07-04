@@ -64,6 +64,7 @@
 				if (host["email"] != undefined) {
 					document.getElementById("host-phone").innerHTML = host["phone"];
 				}
+				document.getElementById("fb-link").href=facebook_link;
 			}
 
 			function getAccount() {
@@ -168,7 +169,7 @@
 			<h3 id="host-phone"></h3>
 		</div>
 
-		<button id="apply-button" class="btn btn-primary" onclick="showMessage()">Apply for Event</button>
+		<a id="fb-link"><button id="apply-button" class="btn btn-primary">Apply for Event</button></a>
 
 		<div id="confirm-application">
 			
