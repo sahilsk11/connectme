@@ -10,14 +10,21 @@
 		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
 		<link href="../Images/icon.png" rel="icon">
 		<script src="../js/XHRequest.js"></script>
+		<script src="../js/cookiesk.js"></script>
 		<script src="../js/jquery-2.2.4.min.js"></script>
 		<script src="../js/bootstrap.js"></script>
 		<script>
 			var code;
+			var user;
+			var loggedin = false;
 
 			function getCode() {
 				var url = new URL(window.location.href);
 				code = url.searchParams.get("code");
+				//user = url.searchParams.get("user");
+				//if (user != null) {
+				//	reload = false;
+				//}
 			}
 
 			function getEvent() {
@@ -44,7 +51,6 @@
 				var location = events["location"];
 				var maximum_people = events["maximum_people"];
 				var facebook_link = events["fb_url"];
-				console.log(facebook_link);
 				document.getElementById("name").innerHTML = name;
 				document.getElementById("date").innerHTML = date;
 				document.getElementById("description").innerHTML = description;
@@ -58,16 +64,65 @@
 				if (host["email"] != undefined) {
 					document.getElementById("host-phone").innerHTML = host["phone"];
 				}
-				document.getElementById("apply-button").href= facebook_link;
 			}
 
-			function apply() {
-
+			function getAccount() {
+				var account = getUserCookie("account");
+				user = account;
 			}
 
+			function getUser() {
+				XHRequest.createRequest({
+					success: allowUser, 
+					method: "GET",
+					params: {
+						command: "user_information",
+						code: user
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+
+			function allowUser(xhr, xhrConfig) {
+				var profile = JSON.parse(xhr.responseText);
+				var firstName = profile["first_name"];
+				console.log(firstName);
+				var lastName = profile["last_name"];
+				var userName = profile["username"];
+				console.log("Received user information");
+				loggedin = true;
+			}
+
+			function showMessage() {
+				if (loggedin) {
+					document.getElementById("confirm-application").innerHTML = '<br>\
+						<p>By confirming, you allow ConnectMe to send the host of this event your email, phone number, and other relevant links provided to us. (We do not send birthday)</p>\
+						<button class="btn btn-success" onclick="sendApplication()">Confirm</button>';
+				}
+				else {
+					document.getElementById("confirm-application").innerHTML = "You are not logged in. Please log in to apply.";
+				}
+			}
+
+			function sendApplication() {
+				XHRequest.createRequest({
+					success: allowUser, 
+					method: "GET",
+					params: {
+						command: "apply-user",
+						code: code,
+						username: user
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+
+			
 			function run() {
 				getCode();
 				getEvent();
+				getAccount();
+				getUser();
 			}
 
 		</script>
@@ -113,9 +168,9 @@
 			<h3 id="host-phone"></h3>
 		</div>
 
-		<a target="_blank" id="apply-button"><button class="btn btn-primary" onclick="apply()">Apply for Event</button></a>
+		<button id="apply-button" class="btn btn-primary" onclick="showMessage()">Apply for Event</button>
 
-		<div id="form" hidden="true">
+		<div id="confirm-application">
 			
 		</div>
 

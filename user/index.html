@@ -19,9 +19,9 @@
 				code = url.searchParams.get("code");
 			}
 
-			function getEvent() {
+			function getUser() {
 				XHRequest.createRequest({
-					success: displayEvent, 
+					success: displayUser, 
 					method: "GET",
 					params: {
 						command: "user_information",
@@ -31,23 +31,21 @@
 				});
 			}
 
-			function displayEvent(xhr, xhrConfig) {
-				var events = JSON.parse(xhr.responseText);
-				var name = events["name"];
-				var date = events["group_date"];
-				var host = events["host"];
-				var host_id = events["host_id"];
-				var code = events["uid"];
-				var categories = events["categories"];
-				var description = events["description"];
-				var location = events["location"];
-				var maximum_people = events["maximum_people"];
-				var facebook_link = events["fb_url"];
+			function displayUser(xhr, xhrConfig) {
+				var profile = JSON.parse(xhr.responseText);
+				var firstName = profile["first_name"];
+				var lastName = profile["last_name"];
+				var userName = profile["username"];
+				var email = profile["email_address"];
+				var phone = profile["phone"];
+				var linkedin = profile["linkedin"];
+				var facebook = profile["facebook"];
+				var github = profile["github"];
 			}
 
 			function run() {
 				getCode();
-				getEvent();
+				getUser();
 			}
 
 		</script>

@@ -32,6 +32,12 @@ def add_user(user_name, first_name, last_name, password, email_address, phone, l
     new_user = user.User(user_name, first_name, last_name, password, email_address, phone, linkedin, facebook, github)
     f["users"][user_name] = new_user
     return new_user
+
+def add_user_to_event(username, code, f):
+    applicant = f["users"][username]
+    for event in f["groups"]:
+        if (str(event.uid) == code):
+            event.applied_users.add(applicant)
     
 def create_dict_from_group(group):
     d = {}
@@ -43,11 +49,16 @@ def create_dict_from_group(group):
     d["location"] = group.location
     d["host"] = {}
     d["host"]["name"] = group.host.first_name + " " + group.host.last_name
-    d["host"]["host_id"] = group.host.user_name
+    d["host"]["host_id"] = group.host.username
     d["maximum_people"] = group.maximum_people
     d["fb_url"] = group.fb_url
-    d["applied_users"] = group.applied_users
-    d["accepted_users"] = group.applied_users
+    d["applied_users"] = list(group.applied_users)
+    for i in range(0, len(d["applied_users"])):
+        d["applied_users"][i] = d["applied_users"][i].__dict__
+        
+    d["accepted_users"] = list(group.applied_users)
+    for i in range(0, len(d["accepted_users"])):
+        d["accepted_users"][i] = d["accepted_users"][i].__dict__
     return d
         
 user_data = shelve.open("user_information.shelve", writeback=True)
@@ -56,6 +67,7 @@ form = cgi.FieldStorage()
 command = form.getfirst("command", "")
 code = form.getfirst("code", "")
 data = form.getfirst("data", "")
+username = form.getfirst("username", "")
 
 if (command == "events"):
     sorted_groups = []
@@ -96,5 +108,12 @@ if (command == "create-user"):
     d = {"success":"true"}
     j = json.dumps(d)
     print j
+    
+if (command == "apply-user"):
+    add_user_to_event(username, code, user_data)
+    d = {"success":"true"}
+    j = json.dumps(d)
+    print j
+    
 
 user_data.close()

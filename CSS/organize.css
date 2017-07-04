@@ -3,15 +3,16 @@ body {
 }
 
 .header-logo {
-	padding: 10px;
+	padding-bottom: 10px;
 	margin: auto;
 	display: block;
 	width: 50%;
-	max-width: 400px;
+	max-width: 350px;
+	min-width: 230px;
 }
 
 .theme-color {
-	background-color: #FF3094;
+	background-color: #32B3E4;
 }
 
 .nav-header {
@@ -52,6 +53,10 @@ body {
 	height: 100vw;
 }
 
+.side-bar-option {
+	max-width: 100%;
+}
+
 /*create*/
 
 .create-event {
@@ -72,4 +77,24 @@ body {
 .location-map {
 	height: 300px;
 	width: 100vw;
+}
+
+.side-bar {
+	border: 1px solid black;
+	min-height: 50vw;
+	height: auto;
+}
+
+@media only screen and (max-width: 570px) {
+	.side-bar {
+		display: none;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
 }
