@@ -37,7 +37,12 @@ def add_user_to_event(username, code, f):
     applicant = f["users"][username]
     for event in f["groups"]:
         if (str(event.uid) == code):
-            event.applied_users.add(applicant)
+            found = False
+            for users in event.applied_users:
+                if (users.username == username):
+                    found = True
+            if (not found):
+                event.applied_users.append(applicant)
     
 def create_dict_from_group(group):
     d = {}
@@ -68,6 +73,8 @@ command = form.getfirst("command", "")
 code = form.getfirst("code", "")
 data = form.getfirst("data", "")
 username = form.getfirst("username", "")
+password = form.getfirst("password", "")
+host = form.getfirst("host", "")
 
 if (command == "events"):
     sorted_groups = []
@@ -79,7 +86,7 @@ if (command == "events"):
     
 if (command == "create"):
     d = eval(data)
-    host = user.User(d["host"]["username"], d["host"]["first"], d["host"]["last"], "", d["host"]["email"], d["host"]["phone"], "", "", "")
+    event_host = user_data["users"][host]
     create_group(d["event_name"], d["event_date"], "", d["description"], d["location"], host, d["maximum_people"], d["fb_url"], user_data)
     d = {"success":"true"}
     j = json.dumps(d)
@@ -114,6 +121,19 @@ if (command == "apply-user"):
     d = {"success":"true"}
     j = json.dumps(d)
     print j
-    
+
+if (command == "login"):
+    d = {}
+    if not (username in user_data["users"]):
+        d["success"] = False
+    else:
+        p = user_data["users"][username].password
+        if (p == password):
+            d["success"] = True
+            d["username"] = username
+        else:
+            d["success"] = False
+    j = json.dumps(d)
+    print j
 
 user_data.close()

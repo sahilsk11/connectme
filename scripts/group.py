@@ -13,8 +13,8 @@ class Group:
         self.host = host
         self.maximum_people = maximum_people
         self.fb_url = fb_url
-        self.applied_users = set()
-        self.accepted_users = set()
+        self.applied_users = []
+        self.accepted_users = []
         
     def create_uid(self):
         f = shelve.open("user_information.shelve", writeback=True)

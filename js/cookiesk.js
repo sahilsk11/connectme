@@ -3,7 +3,7 @@ Sets the cookie to the set value
 @param cvalue the name of the cookie
 */
 function setUserCookie(name, cvalue) {
-    document.cookie = name + "=" + cvalue;
+    document.cookie = name+"="+cvalue+"; path=/";
 }
 
 function checkValidUser(user) {

@@ -5,14 +5,30 @@
 		<meta name = "viewport" content="initial-scale=1.0">
 		<meta name="author" content="Sahil Kapur">
 
-		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
 		<link href="../Images/icon.png" rel="icon">
 		<script src="../js/XHRequest.js"></script>
 		<script src="../js/jquery-2.2.4.min.js"></script>
 		<script src="../js/bootstrap.js"></script>
+		<script src="../js/cookiesk.js"></script>
 		<script>
+			
+			var user;
+
+			function getUser() {
+				user = getUserCookie("account");
+				if (user == "") {
+					redirectToLogin();
+				}
+			}
+
+			function redirectToLogin() {
+				alert("You have to be signed in to create an event.");
+				window.location = "../login";
+			}
+
 			function getFormInfo() {
 				console.log("button clicked");
 				var eventName = document.getElementById("name").value;
@@ -21,12 +37,8 @@
 				var location = document.getElementById("location").value;
 				var maximumPeople = document.getElementById("maximum-people").value;
 				var facebookUrl = document.getElementById("fb-url").value;
-				var hostFirstName = document.getElementById("first-name").value;
-				var hostLastName = document.getElementById("last-name").value;
-				var username = document.getElementById("username").value;
-				var email = document.getElementById("email").value;
-				var phone = document.getElementById("phone").value;
-				var params = {"event_name":eventName, "event_date":eventDate, "description":description, "location":location, "maximum_people":maximumPeople, "fb_url":facebookUrl, "host":{"username":username, "first":hostFirstName, "last":hostLastName, "email":email, "phone":phone}};
+				
+				var params = {"event_name":eventName, "event_date":eventDate, "description":description, "location":location, "maximum_people":maximumPeople, "fb_url":facebookUrl, "host":user};
 
 				if (verifyParams(params) == true) {
 					var string_params = JSON.stringify(params);
@@ -38,7 +50,7 @@
 			}
 
 			function verifyParams(params) {
-				return  !(params["event_name"] == "" || params["event_date"] == "" || params["description"] == "" || params["location"] == "" || params["fb_url"] == "" || params["host"]["username"] == "" || params["host"]["first"] == "" || params["host"]["last"] == "")
+				return  !(params["event_name"] == "" || params["event_date"] == "" || params["description"] == "" || params["location"] == "")
 			}
 
 			function goToEvent(xhr, xhrConfig) {
@@ -59,8 +71,8 @@
 		</script>
 	</head>
 
-	<body>
-		<nav class="navbar-inverse">
+	<body onload="getUser()">
+		<nav class="theme-color navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -74,12 +86,12 @@
 	    				<img src="" class="">
 	    			</a>
 				</div>
-	    		<div id="navbar" class="navbar-collapse collapse">
-	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="../user">Profile</a></li>
-	    				<li class="active"><a href=".">Create Event</a></li>
-	    				<li><a href="../newaccount">Create Account</a></li>
-	    				<li><a href="../verify">Verify Club</a></li>
+	    		<div id="navbar" class="collapse navbar-collapse">
+	    			<ul class="nav navbar-nav theme-color title-font">
+	    				<li><a class="theme-color" href="../user">Profile</a></li>
+	    				<li class="active"><a class="theme-color" href="../create">Create Event</a></li>
+	    				<li><a class="theme-color" href="../newaccount">Create Account</a></li>
+	    				<li><a class="theme-color" href="../login">Log In</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -107,32 +119,9 @@
 				<input class="form-control" id="maximum-people" placeholder="Number of people">
 			</div>
 			<div class="form-group create-event center">
-				<label>Facebook Event link</label>
-				<p>Note: this is required for people to join your event. Please make sure the URL starts with "http://www"</p>
+				<label>Facebook Event link (optional)</label>
+				<p>Please make sure the URL starts with "http://www"</p>
 				<input class="form-control" id="fb-url" placeholder="Number of people">
-			</div>
-
-			<h1 class="text-center">Host Information</h1>
-
-			<div class="form-group create-event center">
-				<label>Host Name (first) *</label>
-				<input class="form-control" id="first-name" placeholder="First">
-			</div>
-			<div class="form-group create-event center">
-				<label>Host Name (last) *</label>
-				<input class="form-control" id="last-name" placeholder="Last">
-			</div>
-			<div class="form-group create-event center">
-				<label>Username *</label>
-				<input class="form-control" id="username" placeholder="Username">
-			</div>
-			<div class="form-group create-event center">
-				<label>Email Address (recommended)</label>
-				<input class="form-control" id="email" placeholder="Email">
-			</div>
-			<div class="form-group create-event center">
-				<label>Phone Number (recommended)</label>
-				<input class="form-control" id="phone" placeholder="Phone Number">
 			</div>
 			
 		</form>

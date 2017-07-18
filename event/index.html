@@ -5,8 +5,8 @@
 		<meta name = "viewport" content="initial-scale=1.0">
 		<meta name="author" content="Sahil Kapur">
 
-		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
 		<link href="../Images/icon.png" rel="icon">
 		<script src="../js/XHRequest.js"></script>
@@ -64,24 +64,26 @@
 				if (host["email"] != undefined) {
 					document.getElementById("host-phone").innerHTML = host["phone"];
 				}
-				document.getElementById("fb-link").href=facebook_link;
 			}
 
 			function getAccount() {
 				var account = getUserCookie("account");
+				console.log(account);
 				user = account;
 			}
 
 			function getUser() {
-				XHRequest.createRequest({
-					success: allowUser, 
-					method: "GET",
-					params: {
-						command: "user_information",
-						code: user
-					},
-					url: "../scripts/connect_database.py"
-				});
+				if (user != "") {
+					XHRequest.createRequest({
+						success: allowUser, 
+						method: "GET",
+						params: {
+							command: "user_information",
+							code: user
+						},
+						url: "../scripts/connect_database.py"
+					});
+				}
 			}
 
 			function allowUser(xhr, xhrConfig) {
@@ -101,13 +103,13 @@
 						<button class="btn btn-success" onclick="sendApplication()">Confirm</button>';
 				}
 				else {
-					document.getElementById("confirm-application").innerHTML = "You are not logged in. Please log in to apply.";
+					document.getElementById("confirm-application").innerHTML = "You are not logged in. Please <a href='../login'>log in to apply.</a>";
 				}
 			}
 
 			function sendApplication() {
 				XHRequest.createRequest({
-					success: allowUser, 
+					success: sendUserToMain, 
 					method: "GET",
 					params: {
 						command: "apply-user",
@@ -118,6 +120,10 @@
 				});
 			}
 
+			function sendUserToMain(xhr, xhrConfig) {
+				alert("You have signed up for this event.");
+				window.location = "../";
+			}
 			
 			function run() {
 				getCode();
@@ -130,7 +136,7 @@
 	</head>
 
 	<body onload="run()">
-		<nav class="navbar-inverse">
+		<nav class="theme-color navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -144,12 +150,12 @@
 	    				<img src="" class="">
 	    			</a>
 				</div>
-	    		<div id="navbar" class="navbar-collapse collapse">
-	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="../user">Profile</a></li>
-	    				<li><a href="../create">Create Event</a></li>
-	    				<li><a href="../newaccount">Create Account</a></li>
-	    				<li><a href="../verify">Verify Club</a></li>
+	    		<div id="navbar" class="collapse navbar-collapse">
+	    			<ul class="nav navbar-nav theme-color title-font">
+	    				<li><a class="theme-color" href="../user">Profile</a></li>
+	    				<li><a class="theme-color" href="../create">Create Event</a></li>
+	    				<li><a class="theme-color" href="../newaccount">Create Account</a></li>
+	    				<li ><a class="theme-color" href="../login">Log In</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -169,10 +175,10 @@
 			<h3 id="host-phone"></h3>
 		</div>
 
-		<a id="fb-link"><button id="apply-button" class="btn btn-primary">Apply for Event</button></a>
+		<button id="apply-button" onclick="showMessage()" class="btn btn-primary">Apply for Event</button>
 
 		<div id="confirm-application">
-			
+
 		</div>
 
 	</body>

@@ -15,7 +15,7 @@
 		<script src="js/cookiesk.js"></script>
 		<script>
 			function getEvents() {
-			XHRequest.createRequest({
+				XHRequest.createRequest({
 					success: displayEvents, 
 					method: "GET",
 					params: {
@@ -30,13 +30,6 @@
 				return account;
 			}
 
-			function setUser() {
-				var account = getAccount();
-				if (account != "") {
-					
-				}
-			}
-
 			function largeEvent() {
 				if (window.innerWidth < 570) {
 					document.getElementById("groups").class="col-xs-12";
@@ -45,6 +38,9 @@
 
 			function displayEvents(xhr, xhrConfig) {
 				var events = JSON.parse(xhr.responseText);
+				if (events.length == 0) {
+					document.getElementById("groups").innerHTML = "<h1 class='text-center'>Oops! No events were found. Try contacting the team if you think this is an issue.</h1>";
+				}
 				for (var i = 0; i < events.length; i++) {
 					var name = events[i]["name"];
 					var date = events[i]["group_date"];
@@ -71,15 +67,30 @@
 				}
 			}
 
+			function setLogin() {
+				var user = getUserCookie("account");
+				if (user != "") {
+					document.getElementById("login").innerHTML = "Log out";
+					document.getElementById("login").href = "logout";
+				}
+			}
+
+			function getCategories() {
+				console.log("button click");
+				var loc = document.getElementById("location");
+				var selected_location = loc.options[loc.selectedIndex].value;
+				window.location = ".?location="+selected_location;
+			}
+
 			function run() {
+				setLogin();
 				getEvents();
-				setUser();
 			}
 		</script>
 
 	</head>
 
-	<body onload="run()" onresize="largeEvent()">
+	<body onload="run()">
 		<nav class="theme-color navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -99,7 +110,7 @@
 	    				<li><a class="theme-color" href="user">Profile</a></li>
 	    				<li><a class="theme-color" href="create">Create Event</a></li>
 	    				<li><a class="theme-color" href="newaccount">Create Account</a></li>
-	    				<li><a class="theme-color" href="verify">Verify Club</a></li>
+	    				<li><a class="theme-color" id="login" href="login">Log In</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -111,7 +122,7 @@
 				<ul>
 					<label>Location</label>
 					<br>
-					<select class="side-bar-option">
+					<select class="side-bar-option" id="location">
 						<option value="None">None</option>
 						<option value="Boston">Boston</option>
 						<option value="Turkey">Turkey</option>
@@ -130,6 +141,17 @@
 						<option value="Club">Club</option>
 					</select>
 				</ul>
+
+				<ul class="form-group">
+					<label>Search:</label>
+					<input class="form-control" placeholder="Search">
+				</ul>
+
+				<button class="submit-button" onclick="getCategories()">Submit</button>
+
+				<div class="rev">
+					<p>Advertisement</p>
+				</div>
 
 			</div>
 			<div id="groups" class="col-xs-9">
