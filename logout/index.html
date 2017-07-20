@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ConnectMe</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<link href="../Images/icon.png" rel="icon">
+		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script src="../js/cookiesk.js"></script>
+
+		<script>
+			function deleteUserCookie() {
+				setUserCookie("account", "");
+			}
+		</script>
+	</head>
+
+	<body onload="deleteUserCookie()">
+		<nav class="theme-color navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="../" class="navbar-brand">
+	    				<p class="title-font">ConnectMe</p>
+	    				<img src="" class="">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="collapse navbar-collapse">
+	    			<ul class="nav navbar-nav theme-color title-font">
+	    				<li><a class="theme-color" href="../user">Profile</a></li>
+	    				<li><a class="theme-color" href="../create">Create Event</a></li>
+	    				<li><a class="theme-color" href="../newaccount">Create Account</a></li>
+	    				<li><a class="theme-color" href="../login">Log In</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
+
+		<h3 class="center-title">You have been logged out. Come back soon!</h3>
+
+	</body>
+</html>
