@@ -111,3 +111,7 @@ body {
 .visible {
 	display: block;
 }
+
+.padding {
+	margin-bottom: 20px;
+}

@@ -16,6 +16,7 @@
 		<script>
 			var code;
 			var user;
+			var host_username;
 			var loggedin = false;
 
 			function getCode() {
@@ -44,7 +45,7 @@
 				var name = events["name"];
 				var date = events["group_date"];
 				var host = events["host"];
-				var host_id = events["host_id"];
+				host_username = host["host_id"];
 				var code = events["uid"];
 				var categories = events["categories"];
 				var description = events["description"];
@@ -57,12 +58,17 @@
 
 				document.getElementById("map").src = "//www.google.com/maps/embed/v1/place?q="+location+"&zoom=17&key=AIzaSyBeEZCy4cxgcCAh17K7RswTSI6wEjaMweE";
 				document.getElementById("host-name").innerHTML = "Host: " + host["name"];
-				document.getElementById("host-name").href = "../newaccount?code="+host_id;
+				document.getElementById("host-name").href = "../newaccount?code="+host_username;
 				if (host["email"] != undefined) {
 					document.getElementById("host-email").innerHTML = host["email"];
 				}
 				if (host["email"] != undefined) {
 					document.getElementById("host-phone").innerHTML = host["phone"];
+				}
+
+				if (user == host_username) {
+					console.log("allow delete");
+					showDelete();
 				}
 			}
 
@@ -70,6 +76,11 @@
 				var account = getUserCookie("account");
 				console.log(account);
 				user = account;
+				
+			}
+
+			function showDelete() {
+				document.getElementById("delete").innerHTML = '<button onclick="removeEvent()" class="btn btn-danger padding">Delete Event</button>';
 			}
 
 			function getUser() {
@@ -91,7 +102,7 @@
 				var firstName = profile["first_name"];
 				console.log(firstName);
 				var lastName = profile["last_name"];
-				var userName = profile["username"];
+				user = profile["username"];
 				console.log("Received user information");
 				loggedin = true;
 			}
@@ -121,8 +132,20 @@
 			}
 
 			function sendUserToMain(xhr, xhrConfig) {
-				alert("You have signed up for this event.");
+				//alert("You have signed up for this event.");
 				window.location = "../";
+			}
+
+			function removeEvent() {
+				XHRequest.createRequest({
+					success: sendUserToMain, 
+					method: "GET",
+					params: {
+						command: "delete_event",
+						code: code,
+					},
+					url: "../scripts/connect_database.py"
+				});
 			}
 			
 			function run() {
@@ -166,8 +189,6 @@
 
 		<p class="lead description-field center" id="description"></p>
 
-		<iframe width="100%" height="300px" id="map"></iframe>
-
 		<h1 class="title-font text-center">Host Information</h1>
 		<div class="title-font container-fluid">
 			<h3 id="host-name"></h3>
@@ -175,10 +196,16 @@
 			<h3 id="host-phone"></h3>
 		</div>
 
-		<button id="apply-button" onclick="showMessage()" class="btn btn-primary">Apply for Event</button>
+		<button id="apply-button" onclick="showMessage()" class="btn btn-primary padding">Apply for Event</button>
 
 		<div id="confirm-application">
 
+		</div>
+
+		<iframe width="100%" height="300px" id="map"></iframe>
+
+		<div id="delete">
+			
 		</div>
 
 	</body>

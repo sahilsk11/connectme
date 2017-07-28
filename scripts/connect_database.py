@@ -33,6 +33,9 @@ def add_user(user_name, first_name, last_name, password, email_address, phone, l
     f["users"][user_name] = new_user
     return new_user
 
+def delete_event(index, f):
+    del f["groups"][index]
+
 def add_user_to_event(username, code, f):
     applicant = f["users"][username]
     for event in f["groups"]:
@@ -86,8 +89,9 @@ if (command == "events"):
     
 if (command == "create"):
     d = eval(data)
-    event_host = user_data["users"][host]
-    create_group(d["event_name"], d["event_date"], "", d["description"], d["location"], host, d["maximum_people"], d["fb_url"], user_data)
+    user_host = d["host"]
+    event_host = user_data["users"][user_host]
+    create_group(d["event_name"], d["event_date"], "", d["description"], d["location"], event_host, d["maximum_people"], d["fb_url"], user_data)
     d = {"success":"true"}
     j = json.dumps(d)
     print j
@@ -121,6 +125,12 @@ if (command == "apply-user"):
     d = {"success":"true"}
     j = json.dumps(d)
     print j
+    
+if (command == "delete_event"):
+    event = None
+    for i in range (0, len(user_data["groups"])):
+        if (str(user_data["groups"][i].uid) == code):
+            delete_event(i, user_data)
 
 if (command == "login"):
     d = {}

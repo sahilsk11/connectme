@@ -12,7 +12,11 @@
 		<script src="../js/XHRequest.js"></script>
 		<script src="../js/jquery-2.2.4.min.js"></script>
 		<script src="../js/bootstrap.js"></script>
+		<script src="../js/cookiesk.js"></script>
 		<script>
+
+			var user;
+
 			function getFormInfo() {
 				console.log("button clicked");
 				var firstName = document.getElementById("first-name").value;
@@ -26,7 +30,7 @@
 				var fb = document.getElementById("fb").value;
 				var github = document.getElementById("github").value;
 				var params = {"first_name":firstName, "last_name":lastName, "username":username, "email":email, "password":password, "phone_number":phone, "linkedin":linkedin, "facebook":fb, "github":github}
-
+				user = username;
 				if (verifyParams(params) == true) {
 					var string_params = JSON.stringify(params);
 					createUser(string_params);
@@ -41,6 +45,7 @@
 			}
 
 			function confirmUser(xhr, xhrConfig) {
+				setUserCookie("account", user);
 				window.location=("../")
 			}
 
