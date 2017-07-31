@@ -5,8 +5,8 @@
 		<meta name = "viewport" content="initial-scale=1.0">
 		<meta name="author" content="Sahil Kapur">
 
-		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
 		<link href="../Images/icon.png" rel="icon">
 		<script src="../js/XHRequest.js"></script>
@@ -64,8 +64,8 @@
 	</head>
 
 	<body>
-		<nav class="navbar-inverse">
-			<div class="container-fluid">
+		<nav class="navbar">
+			<div class="container-fluid bottom-border">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 			      		<span class="sr-only">Toggle navigation</span>
@@ -74,16 +74,15 @@
 			      		<span class="icon-bar"></span>
 		        	</button>
 	    			<a href="../" class="navbar-brand">
-	    				<p class="title-font">ConnectMe</p>
-	    				<img src="" class="">
+	    				<img src="../Images/logo.png" class="nav-logo">
 	    			</a>
 				</div>
-	    		<div id="navbar" class="navbar-collapse collapse">
-	    			<ul class="nav navbar-nav theme">
-	    				<li><a href="../user">Profile</a></li>
-	    				<li><a href="../create">Create Event</a></li>
-	    				<li class="active"><a href="../newaccount">Create Account</a></li>
-	    				<li><a href="../verify">Verify Club</a></li>
+	    		<div id="navbar" class="collapse navbar-collapse">
+	    			<ul class="nav navbar-nav title-font nav-tab">
+	    				<li><a class="nav-font" href="../user">Profile</a></li>
+	    				<li><a class="nav-font" href="../create">Create Event</a></li>
+	    				<li><a class="nav-font active" href=".">Create Account</a></li>
+	    				<li><a class="nav-font" id="login" href="../login">Log In</a></li>
 	    			</ul>
 	    		</div>
 	 		</div>
@@ -134,7 +133,7 @@
 			</div>
 		</form>
 
-		<button class="btn btn-primary" onclick="getFormInfo()">Submit</button>
+		<button class="btn btn-primary submit-button" onclick="getFormInfo()">Submit</button>
 
 	</body>
 </html>
