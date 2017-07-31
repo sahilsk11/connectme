@@ -66,6 +66,8 @@
 					document.getElementById("host-phone").innerHTML = host["phone"];
 				}
 
+				document.getElementById("location").innerHTML = location;
+
 				if (user == host_username) {
 					console.log("allow delete");
 					showDelete();
@@ -80,7 +82,7 @@
 			}
 
 			function showDelete() {
-				document.getElementById("delete").innerHTML = '<button onclick="removeEvent()" class="btn btn-danger padding">Delete Event</button>';
+				document.getElementById("delete").innerHTML = '<button onclick="removeEvent()" class="btn btn-danger submit-button">Delete Event</button>';
 			}
 
 			function getUser() {
@@ -115,12 +117,14 @@
 
 			function showMessage() {
 				if (loggedin) {
-					document.getElementById("confirm-application").innerHTML = '<br>\
-						<p>By confirming, you allow ConnectMe to send the host of this event your email, phone number, and other relevant links provided to us. (We do not send birthday)</p>\
-						<button class="btn btn-success" onclick="sendApplication()">Confirm</button>';
+					if (confirm("By confirming, you allow ConnectMe to send the host of this event your email, phone number, and other relevant links provided to us. (We do not send birthday)")) {
+						sendApplication()
+					}
 				}
 				else {
-					document.getElementById("confirm-application").innerHTML = "You are not logged in. Please <a href='../login'>log in to apply.</a>";
+					if (confirm("You are not logged in. Please log in to apply.")) {
+						window.location = "../login";
+					}
 				}
 			}
 
@@ -189,29 +193,41 @@
 	 		</div>
 		</nav>
 
-		<h1 class="title-font text-center" id="name"></h1>
-		<h5 class="title-font text-center" id="date"></h5>
+		<div class="background-img-container">
+			<img src="../Images/background.jpg" class="event-img">
+		</div>
 
-		<p class="lead description-field center" id="description"></p>
+		<div class="custom-container title-font">
 
-		<h1 class="title-font text-center">Host Information</h1>
-		<div class="title-font container-fluid">
+			<h1 id="name"></h1>
 			<h3 id="host-name"></h3>
-			<h3 id="host-email"></h3>
-			<h3 id="host-phone"></h3>
+			<h5 id="host-email"></h5>
+			<h5 id="host-phone"></h5>
+
+			<button id="apply-button" onclick="showMessage()" class="btn btn-primary apply-btn">Sign Up</button>
+			<div id="confirm-application">
+
+			</div>
+
+			<hr class="bottom-border">
+
+			<span class="col-md-6">
+				<h3><b>Description:</b></h3>
+				<p class="lead" id="description"></p>
+			</span>
+
+			<span class="col-md-6">
+				<h3><b>When:</b></h3>
+				<h3 id="date"></h3>		
+				<br>
+				<h3><b>Where:</b></h3>
+				<p id="location"></p>
+				<iframe width="100%" height="300px" id="map"></iframe>
+			</span>
+
+			<div id="delete">
+				
+			</div>
 		</div>
-
-		<button id="apply-button" onclick="showMessage()" class="btn btn-primary padding">Apply for Event</button>
-
-		<div id="confirm-application">
-
-		</div>
-
-		<iframe width="100%" height="300px" id="map"></iframe>
-
-		<div id="delete">
-			
-		</div>
-
 	</body>
 </html>

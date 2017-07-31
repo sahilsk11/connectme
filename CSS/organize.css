@@ -16,6 +16,7 @@
 
 .nav-tab {
 	padding-left: 130px;
+	text-align: right;
 }
 
 .nav-font {
@@ -79,6 +80,42 @@
 	left:50%;
 }
 
+/*event*/
+
+.background-img-container {
+	width: 90%;
+	height: 30vw;
+	max-height: 200px;
+	display: block;
+	margin: 0px auto;
+	overflow: hidden;
+}
+.event-img {
+	width: 100%;
+	min-height: 100%;
+}
+
+.custom-container {
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	position: relative;
+}
+
+.apply-btn {
+	position: absolute;
+	top: 10px;
+	right: 0px;
+	background-color: #46C1EC;
+	border: none;
+
+}
+
+.location-map {
+	height: 300px;
+	width: 100vw;
+}
+
 /*create*/
 
 .create-event {
@@ -86,15 +123,6 @@
 }
 
 /*information*/
-
-.description-field {
-	width: 90%;
-}
-
-.location-map {
-	height: 300px;
-	width: 100vw;
-}
 
 .side-bar {
 	border: 1px solid black;
