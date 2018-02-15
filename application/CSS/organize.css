@@ -1,0 +1,160 @@
+.header-logo {
+	padding: 10px;
+	margin: auto;
+	display: block;
+	width: 50%;
+	max-width: 350px;
+	min-width: 230px;
+}
+
+.nav-logo {
+	position: absolute;
+	left: 10px;
+	top: 1px;
+	max-height: 43px;
+}
+
+.nav-tab {
+	padding-left: 130px;
+	text-align: right;
+}
+
+.nav-font {
+	color: black;
+}
+
+.bottom-border {
+	border-bottom: 2px solid #D4D4D4;
+}
+
+.navbar-color {
+	background-color: #ffffff;
+}
+
+.nav-header {
+	color: #000000;
+}
+
+.title-font {
+	font-family: 'Raleway', sans-serif;
+}
+
+.user {
+	text-align: right;;
+	padding-right: 5px;
+	font-size: 17px;
+}
+
+.description {
+	margin-top: 20px;
+}
+
+.event-container {
+	border-style: solid;
+	position: relative;
+	font-family: 'Questrial', sans-serif;
+	padding: 5px;
+	background-image: url("");
+}
+
+.center {
+	margin: auto;
+	padding: 10px;
+	width: 90%;
+	max-width: 810px;
+}
+
+.banner {
+	background-color: #CECECE;
+	height: 100vw;
+}
+
+.side-bar-option {
+	max-width: 100%;
+}
+
+.submit-button {
+	position: relative;
+	margin: -20px -50px;
+	top: 10px;
+	left:50%;
+}
+
+/*event*/
+
+.background-img-container {
+	width: 90%;
+	height: 30vw;
+	max-height: 200px;
+	display: block;
+	margin: 0px auto;
+	overflow: hidden;
+}
+.event-img {
+	width: 100%;
+	min-height: 100%;
+}
+
+.custom-container {
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	position: relative;
+}
+
+.apply-btn {
+	position: absolute;
+	top: 10px;
+	right: 0px;
+	background-color: #46C1EC;
+	border: none;
+
+}
+
+.location-map {
+	height: 300px;
+	width: 100vw;
+}
+
+/*create*/
+
+.create-event {
+	width: 90%;
+}
+
+/*information*/
+
+.side-bar {
+	border: 1px solid black;
+	min-height: 50vw;
+	height: auto;
+}
+
+@media only screen and (max-width: 570px) {
+	.side-bar {
+		display: none;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+.rev {
+	height: 500px;
+	width: 100%;
+	background-color: grey;
+}
+
+.center-title {
+	text-align: center;
+	vertical-align: center;
+}
+
+.visible {
+	display: block;
+}
+
+.padding {
+	margin-bottom: 20px;
+}
