@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ConnectMe</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<link href="../Images/icon.png" rel="icon">
+		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script src="../js/cookiesk.js"></script>
+		<script>
+
+			var user;
+
+			function getFormInfo() {
+				console.log("button clicked");
+				var firstName = document.getElementById("first-name").value;
+				var lastName = document.getElementById("last-name").value;
+				var username = document.getElementById("username").value;
+				var email = document.getElementById("email").value;
+				var password = document.getElementById("password").value;
+				var birthdate = document.getElementById("birth-date").value;
+				var phone = document.getElementById("phone").value;
+				var linkedin = document.getElementById("linkedin").value;
+				var fb = document.getElementById("fb").value;
+				var github = document.getElementById("github").value;
+				var params = {"first_name":firstName, "last_name":lastName, "username":username, "email":email, "password":password, "phone_number":phone, "linkedin":linkedin, "facebook":fb, "github":github}
+				user = username;
+				if (verifyParams(params) == true) {
+					var string_params = JSON.stringify(params);
+					createUser(string_params);
+				}
+				else {
+					alert("Some fields are missing information. Please try again.")
+				}
+			}
+
+			function verifyParams(params) {
+				return !(params["first_name"] == "" || params["last_name"] == "" || params["username"] == "");
+			}
+
+			function confirmUser(xhr, xhrConfig) {
+				setUserCookie("account", user);
+				window.location=("../")
+			}
+
+			function createUser(eventJSON) {
+			XHRequest.createRequest({
+					success: confirmUser, 
+					method: "GET",
+					params: {
+						command: "create-user",
+						data: eventJSON,
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+		</script>
+	</head>
+
+	<body>
+		<nav class="navbar">
+			<div class="container-fluid bottom-border">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="../" class="navbar-brand">
+	    				<img src="../Images/logo.png" class="nav-logo">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="collapse navbar-collapse">
+	    			<ul class="nav navbar-nav title-font nav-tab">
+	    				<li><a class="nav-font" href="../user">Profile</a></li>
+	    				<li><a class="nav-font" href="../create">Create Event</a></li>
+	    				<li><a class="nav-font active" href=".">Create Account</a></li>
+	    				<li><a class="nav-font" id="login" href="../login">Log In</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
+
+		<form>
+			<div class="form-group create-event center">
+				<label>First Name *</label>
+				<input class="form-control" id="first-name" placeholder="John">
+			</div>
+			<div class="form-group create-event center">
+				<label>Last Name *</label>
+				<input class="form-control" id="last-name" placeholder="Smith">
+			</div>
+			<div class="form-group create-event center">
+				<label>Username *</label>
+				<input id="username" class="form-control" placeholder="Username"></input>
+			</div>
+			<div class="form-group create-event center">
+				<label>Email *</label>
+				<input class="form-control" id="email" placeholder="Email">
+			</div>
+			<div class="form-group create-event center">
+				<label>Date of Birth (mm/dd/yyyy) *</label>
+				<input id="birth-date" class="form-control" placeholder="01/01/1999"></input>
+			</div>
+			<div class="form-group create-event center">
+				<label>Password (use a password you do not use for anything else) *</label>
+				<p>While our company is in the development stage, this will be stored in plaintext and accessable by the team, so please use a unique password</p>
+				<input id="password" class="form-control" type="password" placeholder="Password"></input>
+			</div>
+			
+			<div class="form-group create-event center">
+				<label>Phone Number (recommended)</label>
+				<input id="phone" class="form-control" placeholder="Phone"></input>
+			</div>
+			<div class="form-group create-event center">
+				<label>LinkedIn URL (recommended)</label>
+				<input class="form-control" id="linkedin" placeholder="LinkedIn">
+			</div>
+			<div class="form-group create-event center">
+				<label>Facebook URL (recommended)</label>
+				<input class="form-control" id="fb" placeholder="Facebook">
+			</div>
+			<div class="form-group create-event center">
+				<label>GitHub URL (recommended)</label>
+				<input class="form-control" id="github" placeholder="GitHub">
+			</div>
+		</form>
+
+		<button class="btn btn-primary submit-button" onclick="getFormInfo()">Submit</button>
+
+	</body>
+</html>
