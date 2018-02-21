@@ -2,9 +2,10 @@
 	padding: 10px;
 	margin: auto;
 	display: block;
-	width: 50%;
-	max-width: 350px;
+	width: 40%;
+	max-width: 300px;
 	min-width: 230px;
+	padding-bottom: 50px;
 }
 
 .nav-logo {
@@ -50,11 +51,12 @@
 }
 
 .event-container {
-	border-style: solid;
+	border: 2px solid black;
 	position: relative;
 	font-family: 'Questrial', sans-serif;
 	padding: 5px;
 	background-image: url("");
+	margin-bottom: 10px;
 }
 
 .center {
@@ -64,6 +66,11 @@
 	max-width: 810px;
 }
 
+.center-block {
+	margin: 0px auto;
+	margin-bottom: 10px;
+}
+
 .banner {
 	background-color: #CECECE;
 	height: 100vw;
@@ -71,13 +78,6 @@
 
 .side-bar-option {
 	max-width: 100%;
-}
-
-.submit-button {
-	position: relative;
-	margin: -20px -50px;
-	top: 10px;
-	left:50%;
 }
 
 /*event*/
@@ -127,7 +127,8 @@
 .side-bar {
 	border: 1px solid black;
 	min-height: 50vw;
-	height: auto;
+	height: 100vh;
+	margin-bottom: 100px;
 }
 
 @media only screen and (max-width: 570px) {
@@ -141,9 +142,11 @@
 }
 
 .rev {
+	margin-top: 50px;
 	height: 500px;
 	width: 100%;
-	background-color: grey;
+	max-width: 300px;
+	background-color: #72767c;
 }
 
 .center-title {
@@ -157,4 +160,8 @@
 
 .padding {
 	margin-bottom: 20px;
+}
+
+ul {
+	padding-left: 4px;
 }

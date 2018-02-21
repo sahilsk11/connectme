@@ -82,7 +82,7 @@
 			}
 
 			function showDelete() {
-				document.getElementById("delete").innerHTML = '<button onclick="removeEvent()" class="btn btn-danger submit-button">Delete Event</button>';
+				document.getElementById("delete").innerHTML = '<button onclick="removeEvent()" class="btn btn-danger center-block">Delete Event</button>';
 			}
 
 			function getUser() {
@@ -183,8 +183,8 @@
 	    			</a>
 				</div>
 	    		<div id="navbar" class="collapse navbar-collapse">
-	    			<ul class="nav navbar-nav title-font nav-tab">
-	    				<li><a class="nav-font" href="../user">Profile</a></li>
+	    			<ul class="nav navbar-nav navbar-right title-font nav-tab">
+	    				<!--<li><a class="nav-font" href="../user">Profile</a></li>-->
 	    				<li><a class="nav-font" href="../create">Create Event</a></li>
 	    				<li><a class="nav-font" href="../newaccount">Create Account</a></li>
 	    				<li><a class="nav-font" id="login" href="../login">Log In</a></li>
@@ -210,20 +210,36 @@
 			</div>
 
 			<hr class="bottom-border">
+			<table width="100%" class="border-left">
+				<tr>
+					<td class="col-md-6 border-left" valign="top">
+						<h3><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> <b>Description:</b></h3>
+						<p class="lead" id="description"></p>
+					</td>
+					<td class="border-left" valign="top">
+						<h3><h3><span class="glyphicon glyphicon-search" aria-hidden="true"></span> <b>Looking for:</b></h3>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-md-6" valign="top">
+						<h3><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <b>When:</b></h3>
+						<h3 id="date"></h3>		
+					</td>
+					<td valign="top">
+						<h3><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <b>Where:</b></h3>
+						<p id="location"></p>
+						<iframe width="100%" height="300px" id="map"></iframe>
+					</td>
+				</tr>
+			</table>
 
-			<span class="col-md-6">
-				<h3><b>Description:</b></h3>
-				<p class="lead" id="description"></p>
-			</span>
+			<hr class="bottom-border">
 
-			<span class="col-md-6">
-				<h3><b>When:</b></h3>
-				<h3 id="date"></h3>		
-				<br>
-				<h3><b>Where:</b></h3>
-				<p id="location"></p>
-				<iframe width="100%" height="300px" id="map"></iframe>
-			</span>
+			<div id="attendees" class="container-fluid">
+				<h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>Attendees:</b></h3>
+			</div>
+
+			<hr class="bottom-border">
 
 			<div id="delete">
 				
