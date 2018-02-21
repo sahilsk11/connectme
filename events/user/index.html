@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Connect</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script>
+			var code;
+
+			function getCode() {
+				var url = new URL(window.location.href);
+				code = url.searchParams.get("code");
+			}
+
+			function getUser() {
+				XHRequest.createRequest({
+					success: displayUser, 
+					method: "GET",
+					params: {
+						command: "user_information",
+						code: code
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+
+			function displayUser(xhr, xhrConfig) {
+				var profile = JSON.parse(xhr.responseText);
+				var firstName = profile["first_name"];
+				var lastName = profile["last_name"];
+				var userName = profile["username"];
+				var email = profile["email_address"];
+				var phone = profile["phone"];
+				var linkedin = profile["linkedin"];
+				var facebook = profile["facebook"];
+				var github = profile["github"];
+			}
+
+			function run() {
+				getCode();
+				getUser();
+			}
+
+		</script>
+	</head>
+
+	<body onload="run()">
+		<nav class="navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="../" class="navbar-brand">
+	    				<p class="title-font">ConnectMe</p>
+	    				<img src="" class="">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="navbar-collapse collapse">
+	    			<ul class="nav navbar-nav theme">
+	    				<li class="active"><a href=".">Profile</a></li>
+	    				<li><a href="../create">Create Event</a></li>
+	    				<li><a href="../newaccount">Create Account</a></li>
+	    				<li><a href="../verify">Verify Club</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
+	</body>
+</html>
