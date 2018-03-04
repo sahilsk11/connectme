@@ -39,43 +39,44 @@
 
 			function getFormInfo() {
 				console.log("button clicked");
-				var eventName = document.getElementById("name").value;
-				var eventDate = document.getElementById("event-date").value;
-				var description = document.getElementById("description").value;
-				var location = document.getElementById("location").value;
-				var maximumPeople = document.getElementById("maximum-people").value;
-				var facebookUrl = document.getElementById("fb-url").value;
-				
-				var params = {"event_name":eventName, "event_date":eventDate, "description":description, "location":location, "maximum_people":maximumPeople, "fb_url":facebookUrl, "host":user};
 
-				if (verifyParams(params) == true) {
-					var string_params = JSON.stringify(params);
-					createEvent(string_params);
+				var categories = document.getElementsByName("category");
+				var organizations = document.getElementsByName("org");
+				var types = document.getElementsByName("type");
+				//console.log(elements);
+
+				var checkedElements = {"categories":[], "organizations":[], "types":[]};
+				
+				for (var i = 0; i < categories.length; i++) {
+					if (categories[i].checked) {
+						checkedElements["categories"].push(categories[i].id);
+					}
+				}
+				for (var i = 0; i < organizations.length; i++) {
+					if (organizations[i].checked) {
+						checkedElements["organizations"].push(organizations[i].id);
+					}
+				}
+				for (var i = 0; i < types.length; i++) {
+					if (types[i].checked) {
+						checkedElements["types"].push(types[i].id);
+					}
+				}
+				console.log(checkedElements);
+
+				if (verifyParams(checkedElements) == true) {
+					var string_params = JSON.stringify(checkedElements);
+					window.location = "page2.html?params="+string_params;
 				}
 				else {
-					alert("Some fields are missing information. Please try again");
+					alert("Each field must have at least one item selected.");
 				}
 			}
 
 			function verifyParams(params) {
-				return  !(params["event_name"] == "" || params["event_date"] == "" || params["description"] == "" || params["location"] == "")
+				return  (params["categories"].length > 0 && params["organizations"].length > 0 && params["types"].length > 0);
 			}
 
-			function goToEvent(xhr, xhrConfig) {
-				window.location="../"
-			}
-
-			function createEvent(eventJSON) {
-			XHRequest.createRequest({
-					success: goToEvent, 
-					method: "GET",
-					params: {
-						command: "create",
-						data: eventJSON,
-					},
-					url: "../scripts/connect_database.py"
-				});
-			}
 		</script>
 	</head>
 
@@ -104,35 +105,40 @@
 	 		</div>
 		</nav>
 
-		<form>
+		<form class="title-font">
+
 			<div class="form-group create-event center">
-				<label>Event Name *</label>
-				<input class="form-control" id="name" placeholder="Name">
+				<label><h3><b>Category</b></h3></label>
+				<br>
+				<input name="category" type="checkbox" id="volunteering"> Volunteering/Social Impact<br>
+				<input name="category" type="checkbox" id="tech"> Engineering & Technology<br>
+				<input name="category" type="checkbox" id="research"> Research<br>
+				<input name="category" type="checkbox" id="entrepreneurship"> Entrepreneurship<br>
+				<input name="category" type="checkbox" id="debate"> Speech and Debate/Politics<br>
+				<input name="category" type="checkbox" id="art"> Music & Art<br>
 			</div>
+
 			<div class="form-group create-event center">
-				<label>Event Date (mm/dd/yyyy) *</label>
-				<input class="form-control" id="event-date" placeholder="Date">
+				<label><h3><b>What is this for?</b></h3></label>
+				<br>
+				<input name="org" type="checkbox" id="club"> School Club<br>
+				<input name="org" type="checkbox" id="org"> Independent Volunteering Organization<br>
+				<input name="org" type="checkbox" id="research"> Other Independent Organization<br>
 			</div>
+
 			<div class="form-group create-event center">
-				<label>Event Description *</label>
-				<textarea class="form-control" rows="3" id="description" placeholder="Description"></textarea>
+				<label><h3><b>What do you want to post?</b></h3></label>
+				<br>
+				<input name="type" type="radio" id="one-time"> One-Time Event<br>
+				<input name="type" type="radio" id="repeated"> Repeated Event <br>(e.g. Every Tuesday)<br>
+				<br>
+				<input name="type" type="radio" id="posting"> Posting for Students to join your organization<br>
+				<!--<input type="radio" id="entrepreneurship"> Posting for Students to join le<br>-->
+
 			</div>
-			<div class="form-group create-event center">
-				<label>Event Location *</label>
-				<input class="form-control" id="location" placeholder="Location">
-			</div>
-			<div class="form-group create-event center">
-				<label>Maximum People (optional)</label>
-				<input class="form-control" id="maximum-people" placeholder="Number of people">
-			</div>
-			<div class="form-group create-event center">
-				<label>Facebook Event link (optional)</label>
-				<p>Please make sure the URL starts with "http://www"</p>
-				<input class="form-control" id="fb-url" placeholder="Number of people">
-			</div>
-			
+
 		</form>
-		<button class="btn btn-primary center-block" onclick="getFormInfo()">Submit</button>
+		<button class="btn btn-primary center-block" onclick="getFormInfo()">Next</button>
 
 	</body>
 </html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ConnectMe</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<meta name="author" content="Sahil Kapur">
+
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Questrial|Raleway" rel="stylesheet">
+		<link href="../Images/icon.png" rel="icon">
+		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
+		<script src="../js/cookiesk.js"></script>
+		<script>
+			
+			var user;
+
+			function getUser() {
+				user = getUserCookie("account");
+				if (user == "") {
+					redirectToLogin();
+				}
+				else {
+					showLogout();
+				}
+			}
+
+			function showLogout() {
+				document.getElementById("login").innerHTML = "Log out";
+				document.getElementById("login").href = "../logout";
+			}
+
+			function redirectToLogin() {
+				alert("You have to be signed in to create an event.");
+				window.location = "../login";
+			}
+
+			function getURLInfo() {
+				var url = new URL(window.location.href);
+				var params = url.searchParams.get("params");
+				var checkedElements = JSON.parse(params);
+				createPage(checkedElements);
+			}
+
+			function createPage(params) {
+				if (params["types"].includes("posting")) {
+					document.getElementById("name").innerHTML = "Club Name *";
+				}
+				else {
+					document.getElementById("name").innerHTML = "Event Name *";
+				}
+			}
+
+			function getFormInfo() {
+				console.log("button clicked");
+				var eventName = document.getElementById("name").value;
+				var eventDate = document.getElementById("event-date").value;
+				var description = document.getElementById("description").value;
+				var location = document.getElementById("location").value;
+				var loc_description = document.getElementById("loc_description").value;
+				var maximumPeople = document.getElementById("maximum-people").value;
+				var facebookUrl = document.getElementById("fb-url").value;
+				
+				var params = {"event_name":eventName, "event_date":eventDate, "description":description, "location":location, "loc_description":loc_description, "maximum_people":maximumPeople, "fb_url":facebookUrl, "host":user};
+
+				if (verifyParams(params) == true) {
+					var string_params = JSON.stringify(params);
+					createEvent(string_params);
+				}
+				else {
+					alert("Some fields are missing information. Please try again");
+				}
+			}
+
+			function verifyParams(params) {
+				return  !(params["event_name"] == "" || params["event_date"] == "" || params["description"] == "" || params["location"] == "")
+			}
+
+			function goToEvent(xhr, xhrConfig) {
+				window.location="../"
+			}
+
+			function createEvent(eventJSON) {
+			XHRequest.createRequest({
+					success: goToEvent, 
+					method: "GET",
+					params: {
+						command: "create",
+						data: eventJSON,
+					},
+					url: "../scripts/connect_database.py"
+				});
+			}
+
+			function go() {
+				getUser();
+				getURLInfo();
+			}
+
+		</script>
+	</head>
+
+	<body onload="go()">
+		<nav class="navbar">
+			<div class="container-fluid bottom-border">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			      		<span class="sr-only">Toggle navigation</span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+			      		<span class="icon-bar"></span>
+		        	</button>
+	    			<a href="../" class="navbar-brand">
+	    				<img src="../Images/logo.png" class="nav-logo">
+	    			</a>
+				</div>
+	    		<div id="navbar" class="collapse navbar-collapse">
+	    			<ul class="nav navbar-nav navbar-right title-font nav-tab">
+	    				<!--<li><a class="nav-font" href="../user">Profile</a></li>-->
+	    				<li><a class="nav-font active" href=".">Create Event</a></li>
+	    				<li><a class="nav-font" href="../newaccount">Create Account</a></li>
+	    				<li><a class="nav-font" id="login" href="../login">Log In</a></li>
+	    			</ul>
+	    		</div>
+	 		</div>
+		</nav>
+
+		<button class="btn btn-primary center-block" onclick="window.history.back()">Go Back</button>
+
+		<form class="title-font">
+
+			<div class="form-group create-event center">
+				<label><h3><b id="name"></b></h3></label>
+				<input class="form-control" id="name" placeholder="Name">
+			</div>
+			<div class="form-group create-event center" id="date">
+				<label><h3><b>Event Date (mm/dd/yyyy) *</b></h3></label>
+				<input class="form-control" id="event-date" placeholder="Date">
+			</div>
+			<div class="form-group create-event center">
+				<label><h3><b>Event Description *</b></h3></label>
+				<textarea class="form-control" rows="3" id="description" placeholder="Description"></textarea>
+			</div>
+			<div class="form-group create-event center">
+				<label><h3><b>Event Address *</b></h3></label>
+				<p>E.g. 22B Baker Street, London</p>
+				<input class="form-control" id="address" placeholder="Location">
+				<br>
+				<label><h3><b>Event Location Description (optional)</b></h3></label>
+				<p>E.g. Mr. Bayne's classroom; Room 562 in the Main Building</p>
+				<input class="form-control" id="loc_description" placeholder="Description">
+			</div>
+			<div class="form-group create-event center">
+				<label><h3><b>Maximum People (optional)</b></h3></label>
+				<input class="form-control" id="maximum-people" placeholder="Number of people">
+			</div>
+			<div class="form-group create-event center">
+				<label><h3><b>Facebook Event link (optional)</b></h3></label>
+				<input class="form-control" id="fb-url" aria-describedby="basic-addon3" placeholder="Facebook URL">
+				
+			</div>
+			
+		</form>
+		<button class="btn btn-primary center-block" onclick="getFormInfo()">Submit</button>
+
+	</body>
+</html>
